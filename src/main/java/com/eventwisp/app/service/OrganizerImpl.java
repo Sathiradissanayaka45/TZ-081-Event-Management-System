@@ -1,5 +1,6 @@
 package com.eventwisp.app.service;
 
+import com.eventwisp.app.dto.OrganizerUpdateDto;
 import com.eventwisp.app.entity.Organizer;
 import com.eventwisp.app.repository.OrganizerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +39,13 @@ public class OrganizerImpl implements OrganizerService{
         return organizerRepository.findById(id).orElse(null);
     }
 
+    //Update an existing organizer
     @Override
-    public Organizer updateOrganizer(Long id, Organizer organizer) {
+    public Organizer updateOrganizer(Long id, OrganizerUpdateDto organizerUpdateDto) {
         return null;
     }
 
+    //Up
     @Override
     public Boolean deleteOrganizer(Long id) {
         return null;

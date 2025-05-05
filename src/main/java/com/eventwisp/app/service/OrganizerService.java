@@ -1,5 +1,6 @@
 package com.eventwisp.app.service;
 
+import com.eventwisp.app.dto.OrganizerUpdateDto;
 import com.eventwisp.app.entity.Organizer;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public interface OrganizerService {
 
     Organizer getOrganizerById(Long id);
 
-    Organizer updateOrganizer(Long id,Organizer organizer);
+    Organizer updateOrganizer(Long id, OrganizerUpdateDto organizerUpdateDto);
 
     Boolean deleteOrganizer(Long id);
 }
