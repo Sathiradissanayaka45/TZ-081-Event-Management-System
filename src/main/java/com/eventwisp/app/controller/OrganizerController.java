@@ -1,5 +1,6 @@
 package com.eventwisp.app.controller;
 
+import com.eventwisp.app.dto.OrganizerUpdateDto;
 import com.eventwisp.app.entity.Organizer;
 import com.eventwisp.app.service.OrganizerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,38 @@ public class OrganizerController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No organizer found for the corresponding id");
             }
             return ResponseEntity.status(HttpStatus.OK).body(organizer);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    //Update organizer
+    @PutMapping("/organizers/{id}")
+    public ResponseEntity<?> updateOrganizer(@PathVariable Long id,@RequestBody OrganizerUpdateDto organizerUpdateDto){
+        try{
+            Organizer updatedOrganizer= organizerService.updateOrganizer(id,organizerUpdateDto);
+
+            //Check if updatedOrganizer is null
+            if(updatedOrganizer==null){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No organizer found for the corresponding id");
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(updatedOrganizer);
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/organizers/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Long id){
+        try{
+            boolean isDeleted=organizerService.deleteOrganizer(id);
+
+            if(isDeleted){
+                return ResponseEntity.status(HttpStatus.OK).body("Organizer deleted successfully");
+            }
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Organizer not found");
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }

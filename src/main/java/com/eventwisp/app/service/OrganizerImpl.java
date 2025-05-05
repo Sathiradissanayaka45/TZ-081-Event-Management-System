@@ -42,12 +42,33 @@ public class OrganizerImpl implements OrganizerService{
     //Update an existing organizer
     @Override
     public Organizer updateOrganizer(Long id, OrganizerUpdateDto organizerUpdateDto) {
-        return null;
+        //Find the existing organizer
+        Organizer existingOrganizer=organizerRepository.findById(id).orElse(null);
+
+        if(existingOrganizer==null){
+            return null;
+        }
+
+        //Add new values
+        existingOrganizer.setCompanyName(organizerUpdateDto.getCompanyName());
+        existingOrganizer.setPhone(organizerUpdateDto.getPhone());
+        existingOrganizer.setEmail(organizerUpdateDto.getEmail());
+        existingOrganizer.setPassword(organizerUpdateDto.getPassword());
+
+        return organizerRepository.save(existingOrganizer);
     }
 
-    //Up
+    //Update
     @Override
     public Boolean deleteOrganizer(Long id) {
-        return null;
+        //Check if the organizer exists
+        boolean isExist=organizerRepository.existsById(id);
+
+        if(isExist){
+            organizerRepository.deleteById(id);
+
+            return true;
+        }
+        return false;
     }
 }
