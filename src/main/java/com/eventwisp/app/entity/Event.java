@@ -1,5 +1,6 @@
 package com.eventwisp.app.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.annotation.Nulls;
 import jakarta.persistence.*;
@@ -7,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "event")
@@ -39,4 +41,8 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "event_category_id")
     private EventCategory eventCategory;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "event")
+    private List<Ticket> tickets;
 }
